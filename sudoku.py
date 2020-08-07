@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import ttk
 board = [
     [7,8,0,4,0,0,1,2,0],
     [6,0,0,0,7,5,0,0,9],
@@ -9,6 +11,37 @@ board = [
     [1,2,0,0,0,7,4,0,0],
     [0,4,9,2,0,6,0,0,7]
 ]
+
+
+def main(bo):
+    window = tk.Tk()
+    window.title("Sudoko")
+    frame1 = ttk.LabelFrame(window, text="Board")
+    frame2 = ttk.LabelFrame(window, text="Solve")
+    frame1.grid(row=0,column=0)
+    frame2.grid(row=1,column=0)
+    solveButton = ttk.Button(frame2, text="Solve",command=solver).grid(row=0,column=0)
+    for i in range(0,9):
+        for j in range(0,9):
+            button1 = ttk.Button(frame1, text=str(bo[i][j]),width= 3).grid(row=i,column=j)
+
+    def solver():
+        solve(bo)
+        for i in range(0, 9):
+            for j in range(0, 9):
+                button1 = frame1.grid(row=i,column=j)
+                button1.set("1")
+
+
+
+
+
+    window.mainloop()
+main(board)
+
+
+
+
 def solve(bo):
     find = find_empty(bo)
     if not find:
@@ -71,6 +104,9 @@ def valid(bo,num, pos):
                 return False
     # if none of the following reach the destination the it says true, meaning that the number is valid
     return True
+
+
+
 
 
 
